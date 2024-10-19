@@ -113,7 +113,7 @@ function TodoList({
                   setCompletedTodos(reducedCompleted);
                   updateLocalStorage(allTodos, reducedCompleted);
                 }}
-                title="Delete?"
+                title="Delete"
               />
             </div>
           </div>
