@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { toast } from 'react-hot-toast';
 
 function TodoForm({ setTodos, allTodos, updateLocalStorage }) {
   const [newTitle, setNewTitle] = useState('');
@@ -6,6 +7,13 @@ function TodoForm({ setTodos, allTodos, updateLocalStorage }) {
   const descriptionInputRef = useRef(null);
 
   const handleAddTodo = () => {
+    if (!newTitle || !newDescription) {
+      toast.error('Both fields are required!', {
+        position: 'top-center',
+      });
+      return;
+    }
+
     const newTodoItem = {
       title: newTitle,
       description: newDescription,
@@ -15,6 +23,9 @@ function TodoForm({ setTodos, allTodos, updateLocalStorage }) {
     updateLocalStorage(updatedTodoArr, JSON.parse(localStorage.getItem('completedTodos')));
     setNewTitle('');
     setNewDescription('');
+    toast.success('New task added!', {
+      position: 'top-center',
+    });
   };
 
   const handleTitleKeyPress = (e) => {

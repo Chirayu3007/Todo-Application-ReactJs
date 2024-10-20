@@ -3,6 +3,7 @@ import "./Todo.css";
 import TodoHeader from './TodoHeader';
 import TodoForm from './TodoForm';
 import TodoList from './TodoList';
+import { Toaster } from 'react-hot-toast';
 
 function Todo() {
     const [isCompleteScreen, setIsCompleteScreen] = useState(false)
@@ -30,6 +31,8 @@ function Todo() {
     }
 
     return (
+        <>
+        <Toaster />
         <div className="todo-wrapper">
             <TodoForm
                 setTodos={setTodos}
@@ -53,6 +56,7 @@ function Todo() {
                 updateLocalStorage={updateLocalStorage}
             />
         </div>
+        </>
     );
 }
 

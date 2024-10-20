@@ -1,6 +1,7 @@
 import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
+import { toast } from 'react-hot-toast';
 
 function TodoList({
   isCompleteScreen,
@@ -18,6 +19,9 @@ function TodoList({
     const reducedTodo = allTodos.filter((_, i) => i !== index);
     setTodos(reducedTodo);
     updateLocalStorage(reducedTodo, completedTodos);
+    toast.success('Task deleted', {
+      position: 'top-center',
+    });
   };
 
   const handleComplete = index => {
@@ -30,6 +34,9 @@ function TodoList({
     setCompletedTodos(updatedCompletedArr);
     handleDeleteTodo(index);
     updateLocalStorage(allTodos, updatedCompletedArr);
+    toast.success('Task completed', {
+      position: 'top-center',
+    });
   };
 
   const handleEdit = (index, item) => {
@@ -38,11 +45,21 @@ function TodoList({
   };
 
   const handleUpdateToDo = () => {
+    if (!currentEditedItem.title || !currentEditedItem.description) {
+      toast.error('Both fields are required!', {
+        position: 'top-center',
+      });
+      return;
+    }
+
     const newTodos = [...allTodos];
     newTodos[currentEdit] = currentEditedItem;
     setTodos(newTodos);
     setCurrentEdit("");
     updateLocalStorage(newTodos, completedTodos);
+    toast.success('Task updated!', {
+      position: 'top-center',
+    });
   };
 
   return (
@@ -112,6 +129,9 @@ function TodoList({
                   const reducedCompleted = completedTodos.filter((_, i) => i !== index);
                   setCompletedTodos(reducedCompleted);
                   updateLocalStorage(allTodos, reducedCompleted);
+                  toast.success('Task deleted', {
+                    position: 'top-center',
+                  });
                 }}
                 title="Delete"
               />
