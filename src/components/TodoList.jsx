@@ -19,7 +19,9 @@ function TodoList({
     const reducedTodo = allTodos.filter((_, i) => i !== index);
     setTodos(reducedTodo);
     updateLocalStorage(reducedTodo, completedTodos);
-    toast.success('Task deleted !', {
+    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.success('Task deleted', {
+      id: 'delete-toast', // Unique ID for delete action
       position: 'top-center',
     });
   };
@@ -34,7 +36,9 @@ function TodoList({
     setCompletedTodos(updatedCompletedArr);
     handleDeleteTodo(index);
     updateLocalStorage(allTodos, updatedCompletedArr);
-    toast.success('Task completed !', {
+    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.success('Task completed', {
+      id: 'complete-toast', // Unique ID for complete action
       position: 'top-center',
     });
   };
@@ -46,7 +50,9 @@ function TodoList({
 
   const handleUpdateToDo = () => {
     if (!currentEditedItem.title || !currentEditedItem.description) {
-      toast.error('Both fields are required !', {
+      toast.dismiss(); // Dismiss any previous toast before showing a new one
+      toast.error('Both fields are required!', {
+        id: 'empty-fields-toast', // Unique ID for empty fields check
         position: 'top-center',
       });
       return;
@@ -57,7 +63,9 @@ function TodoList({
     setTodos(newTodos);
     setCurrentEdit("");
     updateLocalStorage(newTodos, completedTodos);
-    toast.success('Task updated !', {
+    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.success('Task updated!', {
+      id: 'update-toast', // Unique ID for update action
       position: 'top-center',
     });
   };
@@ -129,7 +137,9 @@ function TodoList({
                   const reducedCompleted = completedTodos.filter((_, i) => i !== index);
                   setCompletedTodos(reducedCompleted);
                   updateLocalStorage(allTodos, reducedCompleted);
-                  toast.success('Task deleted !', {
+                  toast.dismiss(); // Dismiss any previous toast before showing a new one
+                  toast.success('Task deleted', {
+                    id: 'delete-completed-toast', // Unique ID for delete action in completed tasks
                     position: 'top-center',
                   });
                 }}
