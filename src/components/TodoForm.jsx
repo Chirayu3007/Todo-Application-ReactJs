@@ -8,7 +8,7 @@ function TodoForm({ setTodos, allTodos, updateLocalStorage }) {
 
   const handleAddTodo = () => {
     if (!newTitle || !newDescription) {
-      toast.error('Both fields are required!', {
+      toast.error('Both fields are required !', {
         position: 'top-center',
       });
       return;
@@ -23,7 +23,7 @@ function TodoForm({ setTodos, allTodos, updateLocalStorage }) {
     updateLocalStorage(updatedTodoArr, JSON.parse(localStorage.getItem('completedTodos')));
     setNewTitle('');
     setNewDescription('');
-    toast.success('New task added!', {
+    toast.success('New task added !', {
       position: 'top-center',
     });
   };

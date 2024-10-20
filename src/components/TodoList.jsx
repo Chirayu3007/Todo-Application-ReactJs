@@ -19,7 +19,7 @@ function TodoList({
     const reducedTodo = allTodos.filter((_, i) => i !== index);
     setTodos(reducedTodo);
     updateLocalStorage(reducedTodo, completedTodos);
-    toast.success('Task deleted', {
+    toast.success('Task deleted !', {
       position: 'top-center',
     });
   };
@@ -34,7 +34,7 @@ function TodoList({
     setCompletedTodos(updatedCompletedArr);
     handleDeleteTodo(index);
     updateLocalStorage(allTodos, updatedCompletedArr);
-    toast.success('Task completed', {
+    toast.success('Task completed !', {
       position: 'top-center',
     });
   };
@@ -46,7 +46,7 @@ function TodoList({
 
   const handleUpdateToDo = () => {
     if (!currentEditedItem.title || !currentEditedItem.description) {
-      toast.error('Both fields are required!', {
+      toast.error('Both fields are required !', {
         position: 'top-center',
       });
       return;
@@ -57,7 +57,7 @@ function TodoList({
     setTodos(newTodos);
     setCurrentEdit("");
     updateLocalStorage(newTodos, completedTodos);
-    toast.success('Task updated!', {
+    toast.success('Task updated !', {
       position: 'top-center',
     });
   };
@@ -129,7 +129,7 @@ function TodoList({
                   const reducedCompleted = completedTodos.filter((_, i) => i !== index);
                   setCompletedTodos(reducedCompleted);
                   updateLocalStorage(allTodos, reducedCompleted);
-                  toast.success('Task deleted', {
+                  toast.success('Task deleted !', {
                     position: 'top-center',
                   });
                 }}
