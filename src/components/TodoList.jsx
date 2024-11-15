@@ -2,6 +2,8 @@ import React from 'react';
 import { AiOutlineDelete, AiOutlineEdit } from 'react-icons/ai';
 import { BsCheckLg } from 'react-icons/bs';
 import { toast } from 'react-hot-toast';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 function TodoList({
   isCompleteScreen,
@@ -19,9 +21,9 @@ function TodoList({
     const reducedTodo = allTodos.filter((_, i) => i !== index);
     setTodos(reducedTodo);
     updateLocalStorage(reducedTodo, completedTodos);
-    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.dismiss();
     toast.success('Task deleted', {
-      id: 'delete-toast', // Unique ID for delete action
+      id: 'delete-toast',
       position: 'top-center',
     });
   };
@@ -36,9 +38,9 @@ function TodoList({
     setCompletedTodos(updatedCompletedArr);
     handleDeleteTodo(index);
     updateLocalStorage(allTodos, updatedCompletedArr);
-    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.dismiss();
     toast.success('Task completed', {
-      id: 'complete-toast', // Unique ID for complete action
+      id: 'complete-toast',
       position: 'top-center',
     });
   };
@@ -50,9 +52,9 @@ function TodoList({
 
   const handleUpdateToDo = () => {
     if (!currentEditedItem.title || !currentEditedItem.description) {
-      toast.dismiss(); // Dismiss any previous toast before showing a new one
+      toast.dismiss();
       toast.error('Both fields are required!', {
-        id: 'empty-fields-toast', // Unique ID for empty fields check
+        id: 'empty-fields-toast',
         position: 'top-center',
       });
       return;
@@ -61,11 +63,11 @@ function TodoList({
     const newTodos = [...allTodos];
     newTodos[currentEdit] = currentEditedItem;
     setTodos(newTodos);
-    setCurrentEdit("");
+    setCurrentEdit('');
     updateLocalStorage(newTodos, completedTodos);
-    toast.dismiss(); // Dismiss any previous toast before showing a new one
+    toast.dismiss();
     toast.success('Task updated!', {
-      id: 'update-toast', // Unique ID for update action
+      id: 'update-toast',
       position: 'top-center',
     });
   };
@@ -75,14 +77,14 @@ function TodoList({
       {!isCompleteScreen &&
         allTodos.map((item, index) => (
           currentEdit === index ? (
-            <div className='edit__wrapper' key={index}>
+            <div className="edit__wrapper" key={index}>
               <input
-                placeholder='Updated Title'
+                placeholder="Updated Title"
                 onChange={e => setCurrentEditedItem({ ...currentEditedItem, title: e.target.value })}
                 value={currentEditedItem.title}
               />
               <textarea
-                placeholder='Updated Description'
+                placeholder="Updated Description"
                 rows={4}
                 onChange={e => setCurrentEditedItem({ ...currentEditedItem, description: e.target.value })}
                 value={currentEditedItem.description}
@@ -105,17 +107,20 @@ function TodoList({
                 <AiOutlineDelete
                   className="icon"
                   onClick={() => handleDeleteTodo(index)}
-                  title="Delete?"
+                  data-tooltip-id="tooltip"
+                  data-tooltip-content="Delete Task"
                 />
                 <BsCheckLg
                   className="check-icon"
                   onClick={() => handleComplete(index)}
-                  title="Complete?"
+                  data-tooltip-id="tooltip"
+                  data-tooltip-content="Mark as Completed"
                 />
                 <AiOutlineEdit
                   className="edit-icon"
                   onClick={() => handleEdit(index, item)}
-                  title="Edit?"
+                  data-tooltip-id="tooltip"
+                  data-tooltip-content="Edit Task"
                 />
               </div>
             </div>
@@ -137,17 +142,20 @@ function TodoList({
                   const reducedCompleted = completedTodos.filter((_, i) => i !== index);
                   setCompletedTodos(reducedCompleted);
                   updateLocalStorage(allTodos, reducedCompleted);
-                  toast.dismiss(); // Dismiss any previous toast before showing a new one
+                  toast.dismiss();
                   toast.success('Task deleted', {
-                    id: 'delete-completed-toast', // Unique ID for delete action in completed tasks
+                    id: 'delete-completed-toast',
                     position: 'top-center',
                   });
                 }}
-                title="Delete"
+                data-tooltip-id="tooltip"
+                data-tooltip-content="Delete Task"
               />
             </div>
           </div>
         ))}
+
+      <Tooltip id="tooltip" />
     </div>
   );
 }
